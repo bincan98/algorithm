@@ -14,7 +14,6 @@ public class Main {
 	private static int[][] virusLocation;
 	private static int cnt;
 	private static int[] numbers;
-	private static int[][] arrCopy;
 	private static int dy[] = {0,0,-1,1};
 	private static int dx[] = {-1,1,0,0};
 	private static int[][] distance;
@@ -26,7 +25,6 @@ public class Main {
 		M = Integer.parseInt(st.nextToken());
 
 		arr = new int[N][N];
-		arrCopy = new int[N][N];
 		virusLocation = new int[10][2];
 		numbers = new int[M];
 
@@ -53,12 +51,6 @@ public class Main {
 
 	private static void combi(int index, int k) {
 		if(index == M) {
-			// 맵 복사해두기
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					arrCopy[i][j] = arr[i][j];
-				}
-			}
 
 			activate();
 			
@@ -75,8 +67,8 @@ public class Main {
 		int max = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				if(distance[i][j] == -1 && arrCopy[i][j] != 1) return;
-				if(arrCopy[i][j] != 2) max = Math.max(max, distance[i][j]);
+				if(distance[i][j] == -1 && arr[i][j] != 1) return;
+				if(arr[i][j] != 2) max = Math.max(max, distance[i][j]);
 			}
 		}
 		
@@ -106,7 +98,7 @@ public class Main {
 			for (int i = 0; i < 4; i++) {
 				int ny = currentY + dy[i];
 				int nx = currentX + dx[i];
-				if(isVaild(ny,nx) && arrCopy[ny][nx] != 1) {
+				if(isVaild(ny,nx) && arr[ny][nx] != 1) {
 					if (distance[ny][nx] == -1) {
 						queue.offer(ny);
 						queue.offer(nx);
