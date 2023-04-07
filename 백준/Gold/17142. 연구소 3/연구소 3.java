@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
@@ -14,7 +15,6 @@ public class Main {
 	private static int cnt;
 	private static int[] numbers;
 	private static int[][] arrCopy;
-	private static boolean[][] visited;
 	private static int dy[] = {0,0,-1,1};
 	private static int dx[] = {-1,1,0,0};
 	private static int[][] distance;
@@ -75,7 +75,7 @@ public class Main {
 		int max = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				if(!visited[i][j] && arrCopy[i][j] != 1) return;
+				if(distance[i][j] == -1 && arrCopy[i][j] != 1) return;
 				if(arrCopy[i][j] != 2) max = Math.max(max, distance[i][j]);
 			}
 		}
@@ -86,15 +86,18 @@ public class Main {
 	private static void activate() {
 
 		Queue<Integer> queue = new ArrayDeque<>();
-		visited = new boolean[N][N];
 		distance = new int[N][N];
+		
+		for (int i = 0; i < N; i++) {
+			Arrays.fill(distance[i], -1);			
+		}
 
 		for (int i = 0; i < M; i++) { 
 			// 고른 바이러스 좌표 큐에 넣기
 			queue.offer(virusLocation[numbers[i]][0]); // y좌표			
 			queue.offer(virusLocation[numbers[i]][1]); // x좌표
-			// visited 체크
-			visited[virusLocation[numbers[i]][0]][virusLocation[numbers[i]][1]] = true;
+			// distance로 visited 체크
+			distance[virusLocation[numbers[i]][0]][virusLocation[numbers[i]][1]] = 0;
 		} 
 
 		while(!queue.isEmpty()) {
@@ -104,10 +107,9 @@ public class Main {
 				int ny = currentY + dy[i];
 				int nx = currentX + dx[i];
 				if(isVaild(ny,nx) && arrCopy[ny][nx] != 1) {
-					if (!visited[ny][nx]) {
+					if (distance[ny][nx] == -1) {
 						queue.offer(ny);
 						queue.offer(nx);
-						visited[ny][nx] = true;
 						distance[ny][nx] = distance[currentY][currentX] + 1;
 					}
 				}
