@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer st;
+	static StringBuilder sb = new StringBuilder();
 	private static int N, R, Q;
 	private static ArrayList<Integer>[] adjList;
 	private static boolean[] visited;
@@ -34,16 +35,16 @@ public class Main {
 			adjList[to].add(from);
 		} // 입력 완료
 		
-		visited = new boolean[N+1];
-		dp = new int[N+1];
+		visited = new boolean[N+1]; // 방문체크
+		dp = new int[N+1]; // dp 테이블
 		dp[R] = dfs(R);
-		
-//		System.out.println(Arrays.toString(dp));
 		
 		for (int i = 0; i < Q; i++) {
 			int query = Integer.parseInt(br.readLine());
-			System.out.println(dp[query]);
+			sb.append(dp[query]).append("\n");
 		}
+
+		System.out.println(sb.toString());
 		
 	} // end of main
 
@@ -58,10 +59,10 @@ public class Main {
 			}
 		}
 		
-		if(sum == 0) {
-			dp[current] = 1;
-		} else {
-			dp[current] = sum + 1;
+		if(sum == 0) { // 리프 노드일때
+			dp[current] = 1; 
+		} else { // 리프노드가 아닐때
+			dp[current] = sum + 1; // 자기 자신도 더해주기 위해서 1을 더해주기
 		}
 		
 		return dp[current];
