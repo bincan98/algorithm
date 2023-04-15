@@ -23,21 +23,21 @@ public class Main {
 		} // 입력완료
 		
 		
-		int start = 0;
-		int end = 0;
-		int sum = arr[0];
-		answer = 0;
+		int start = 0; // 시작 지점
+		int end = 0; // 끝 지점
+		int sum = arr[0]; // 부분 수열의 합
+		answer = 0; // 경우의 수 
 		while(true) {
-			if(sum > M) {
-				sum -= arr[start];
-				start++;
-			} else { // sum <= M
-				if(sum == M) {
-					answer++;
+			if(sum > M) { // 부분수열의 합이 목표보다 크다면
+				sum -= arr[start]; // 시작지점의 값을 빼주고
+				start++; // 시작지점 땡기기
+			} else { // sum <= M // 크거나 같다면
+				if(sum == M) { // 같다면 
+					answer++; // 경우의수 증가시키고
 				}
-				end++;
-				if(end >= N) break;
-				sum += arr[end];
+				end++; // 끝지점 밀기
+				if(end >= N) break; // 끝에 오면 나가기
+				sum += arr[end]; // 부분수열의 합에서 끝지점값 더해주기
 			}
 		}
 		
