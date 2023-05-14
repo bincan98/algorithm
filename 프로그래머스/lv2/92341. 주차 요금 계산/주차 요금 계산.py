@@ -59,6 +59,5 @@ def solution(fees, records):
         sum += math.ceil(time / fees[2]) * fees[3]
         answer.append(sum)
 
-
     return answer
 
