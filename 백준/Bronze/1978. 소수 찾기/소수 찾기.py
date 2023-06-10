@@ -1,3 +1,4 @@
+# 소수 판정 기본코드 (파이썬)
 N = int(input())
 lst = list(map(int, input().split()))
 
