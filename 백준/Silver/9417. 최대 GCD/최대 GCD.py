@@ -22,7 +22,7 @@ for testCase in range(N):
     # 리스트 입력받기
     lst = list(map(int, input().split()))
     # 최대 공약수중 가장 큰값이므로 가장 작은 수로 초기화
-    answer = -(2 ** 32)
+    answer = -(2 ** 31)
 
     # 두개 구하는 조합이므로 for문 두개로
     for i in range(len(lst)):
