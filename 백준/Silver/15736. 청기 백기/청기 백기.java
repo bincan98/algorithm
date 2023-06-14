@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
  왜인지는 모름
 
 그냥 다 써보니까 제곱수만 백색임
- */
+**/
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	
