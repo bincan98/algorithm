@@ -1,15 +1,22 @@
+"""
+기본적인 누적합 문제
+
+패딩을 주면 편하다
+"""
+
 import sys
 
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
+
 lst = [0] + list(map(int, input().split()))
 
-sum_lst = [0 for i in range(N+1)]
+prefix_sum = [0] * (N+1)
 
-for i in range(N+1):
-    sum_lst[i] = sum_lst[i-1] + lst[i]
+for i in range(1, N+1):
+    prefix_sum[i] = prefix_sum[i-1] + lst[i]
 
 for _ in range(M):
-    a, b = map(int, input().split())
-    print(sum_lst[b] - sum_lst[a-1])
+    i, j = map(int, input().split())
+    print(prefix_sum[j] - prefix_sum[i-1])
