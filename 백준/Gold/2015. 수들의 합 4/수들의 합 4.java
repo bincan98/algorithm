@@ -50,8 +50,7 @@ public class Main {
 			}
 			// (이번 누적합 - K)가 키인 값 더해주기 (없다면 0을 더하기)
 			answer += dict.getOrDefault(prefix_sum[i] - K, 0L);
-			// 이번 누적합을 딕셔너리에 넣어주기 (이미 있다면 카운트 1 더해주기, 없다면 0 넣기)
-			long arr=  dict.getOrDefault(prefix_sum[i], 0L) + 1;
+			// 이번 누적합을 딕셔너리에 넣어주기 (이미 있다면 카운트 1 더해주기, 없다면 1 넣기)
 			dict.put(prefix_sum[i], dict.getOrDefault(prefix_sum[i], 0L) + 1);
 		}
 		
