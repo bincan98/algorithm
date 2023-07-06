@@ -4,11 +4,11 @@
 
 ### 성능 요약
 
-메모리: 57832 KB, 시간: 372 ms
+메모리: 171016 KB, 시간: 232 ms
 
 ### 분류
 
-자료 구조, 이분 탐색, 스택
+이분 탐색, 자료 구조, 스택
 
 ### 문제 설명
 
@@ -16,13 +16,13 @@
 
 <p>Your goal is to find the area of the largest rectangle contained in the given histogram, such that one of the sides is parallel to the base line.</p>
 
-<p style="text-align: center;"><img alt="" src="" style="width: 420px; height: 131px;"></p>
+<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/c2f4b765-52f0-45c6-87e8-52e2c5760d0e/" style="width: 420px; height: 131px;"></p>
 
 <p style="text-align: center;"><em>Figure 1. The histogram given in the example, with the largest rectangle shown on the right.</em></p>
 
 <p>Actually, no, you have to find the largest <strong>square</strong>. Since the area of a square is determined by its side length, you are required to output the <strong>side length</strong> instead of the area.</p>
 
-<p style="text-align: center;"><img alt="" src="" style="width: 419px; height: 131px;"></p>
+<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/56b37985-3029-4879-90cb-4b6cdba5d798/" style="width: 419px; height: 131px;"></p>
 
 <p style="text-align: center;"><em>Figure 2. The histogram given in the example, with the largest <strong>square</strong> shown on the right.</em></p>
 
