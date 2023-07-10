@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /**
- * 수열 기본 코드
+ * 순열 기본 코드
  */
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
