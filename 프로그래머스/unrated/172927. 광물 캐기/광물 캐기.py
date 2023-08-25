@@ -1,51 +1,63 @@
-def solution(picks, minerals):
-    answer = 987654321
-    
-    n = 0
-    if len(minerals) % 5 == 0:
-        n = len(minerals) // 5
-    else:
-        n = len(minerals) // 5 + 1
-    n = min(n, sum(picks))
-    
-    selected = [-1] * n
-    
-    def cacul(pick, mineral):
-        if pick == 0: # 다이아곡괭이
-            return 1
-        elif pick == 1: # 철곡괭이
-            if mineral == "diamond":
-                return 5
-            else:
-                return 1
-        else: # 돌곡괭이
-            if mineral == "diamond":
-                return 25
-            elif mineral == "iron":
-                return 5
-            else:
-                return 1
-            
-    def recur(cur):
-        if cur == n:
-            nonlocal answer
-            result = 0
-            for i in range(n):
-                for j in range(i*5, i*5+5):
-                    if j >= len(minerals):
-                        break
-                    result += cacul(selected[i], minerals[j])
-            answer = min(answer, result)
-            return
-        for i in range(3):
-            if picks[i] == 0:
-                continue
-            picks[i] -= 1
-            selected[cur] = i
-            recur(cur + 1)
-            picks[i] += 1
-    
-    recur(0)
-    
-    return answer
+import sys
 
+sys.setrecursionlimit(10 ** 6)
+
+ls = []
+minValue = 987654
+
+
+def solution(picks, minerals):
+    global ls, minValue
+    ls = minerals
+    recur(0, picks[0], picks[1], picks[2], 0, "", -1)
+    return minValue
+
+
+def recur(depth, dia, iron, stone, pirodo, pick, cnt):
+    global ls, minValue
+
+    if depth == len(ls):
+        minValue = min(minValue, pirodo)
+        return
+    
+    if dia + iron + stone == 0 and cnt == 5:
+        minValue = min(minValue, pirodo)
+        return
+
+    # 새로 뽑음
+    if cnt == -1 or cnt == 5:
+        if dia > 0:
+            recur(depth, dia - 1, iron, stone, pirodo, "dia", 0)
+
+        if iron > 0:
+            if ls[depth] == "diamond":
+                recur(depth, dia, iron-1, stone, pirodo, "iron", 0)
+            else:
+                recur(depth, dia, iron-1, stone, pirodo, "iron", 0)
+
+        if stone > 0:
+            if ls[depth] == "diamond":
+                recur(depth, dia, iron, stone - 1, pirodo, "stone", 0)
+            elif ls[depth] == "iron":
+                recur(depth, dia, iron, stone - 1, pirodo, "stone", 0)
+            else:
+                recur(depth, dia, iron, stone - 1, pirodo, "stone", 0)
+
+    # 새로 뽑지 않음
+    else:
+        if pick == "dia":
+            recur(depth + 1, dia, iron, stone, pirodo + 1, pick, cnt + 1)
+
+        elif pick == "iron":
+            if ls[depth] == "diamond":
+                recur(depth + 1, dia, iron, stone, pirodo + 5, pick, cnt + 1)
+            else:
+                recur(depth + 1, dia, iron, stone, pirodo + 1, pick, cnt + 1)
+
+        else:
+            if ls[depth] == "diamond":
+                recur(depth + 1, dia, iron, stone, pirodo + 25, pick, cnt + 1)
+            elif ls[depth] == "iron":
+                recur(depth + 1, dia, iron, stone, pirodo + 5, pick, cnt + 1)
+            else:
+                recur(depth + 1, dia, iron, stone, pirodo + 1, pick, cnt + 1)
