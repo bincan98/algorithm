@@ -24,28 +24,41 @@ selected = [0] * N
 answer = 987654321
 
 
-def recur(cur):
+def disco(arr, cur):
+    new_lst = arr[:]
+    result = 0
+    result += new_lst[selected[cur]]
+    for dis in discount[selected[cur]]:
+        new_lst[dis[0]] -= dis[1]
+        if new_lst[dis[0]] <= 0:
+            new_lst[dis[0]] = 1
+    return new_lst
+
+
+def recur(cur, total, arr):
+    global answer
+    if total > answer:
+        return
     if cur == N:
         # print(selected)
-        global answer
-        new_lst = lst[:]
-        result = 0
-        for a in selected:
-            result += new_lst[a]
-            for dis in discount[a]:
-                new_lst[dis[0]] -= dis[1]
-                if new_lst[dis[0]] <= 0:
-                    new_lst[dis[0]] = 1
-        answer = min(answer, result)
+        # new_lst = lst[:]
+        # result = 0
+        # for a in selected:
+        #     result += new_lst[a]
+        #     for dis in discount[a]:
+        #         new_lst[dis[0]] -= dis[1]
+        #         if new_lst[dis[0]] <= 0:
+        #             new_lst[dis[0]] = 1
+        answer = min(answer, total)
         return
     for i in range(1, N+1):
         if visited[i]:
             continue
         visited[i] = True
         selected[cur] = i
-        recur(cur + 1)
+        recur(cur + 1, total + arr[i], disco(arr, cur))
         visited[i] = False
 
 
-recur(0)
+recur(0, 0, lst)
 print(answer)
