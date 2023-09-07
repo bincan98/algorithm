@@ -28,5 +28,7 @@ for i in range(T):
 
     if sejun:
         print("S")
-    else:
+    elif sebi:
         print("B")
+    else:
+        print("C")
