@@ -1,29 +1,24 @@
-import sys
 
-input = lambda: sys.stdin.readline().strip()
 
 N, M = map(int, input().split())
-lst = list(map(int, input().split()))
 
-start = 0
-end = 0
+arr = [i for i in map(int, input().split())]
 
-answer = 0
-result = lst[0]
+ans = 0
+i, j = 0, 0
+total = arr[0]
 while True:
-    if result == M:
-        answer += 1
-        end += 1
-        if end == N:
+    if total == M:
+        ans += 1
+        total -= arr[i]
+        i += 1
+    elif total < M:
+        j += 1
+        if j >= N:
             break
-        result += lst[end]
-    elif result < M:
-        end += 1
-        if end == N:
-            break
-        result += lst[end]
+        total += arr[j]
     else:
-        result -= lst[start]
-        start += 1
+        total -= arr[i]
+        i += 1
 
-print(answer)
+print(ans)
