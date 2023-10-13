@@ -1,14 +1,26 @@
-def recur(cur, total):
-	global ans
-	if cur == n:
-		if total == k:
-			ans += 1
-		return
-	recur(cur + 1, total + ls[cur])
-	recur(cur + 1, total)
+"""
+"""
+import sys
 
-n, k = map(int, input().split())
-ls = list(map(int, input().split())) 
-ans = 0
+input = lambda: sys.stdin.readline().strip()
+
+N, S = map(int, input().split())
+lst = list(map(int, input().split()))
+
+
+def recur(cur, total):
+    if cur == N:
+        if total == S:
+            global answer
+            answer += 1
+        return
+    recur(cur + 1, total + lst[cur])
+    recur(cur + 1, total)
+
+
+answer = 0
 recur(0, 0)
-print(ans - int(k == 0))
+if S == 0:
+    print(answer - 1)
+else:
+    print(answer)
