@@ -16,9 +16,14 @@ N, K = map(int, input().split())
 monster = list(map(int, input().split()))
 npc = list(map(int, input().split()))
 
+lst = []
+for i in range(N):
+    lst.append([monster[i], npc[i]])
+
+lst = sorted(lst)
+
 
 def validate(arr):
-    arr = sorted(arr)
     total = 0
     cnt = len(arr)
     return_value = 0
@@ -40,7 +45,7 @@ def recur(cur, arr):
         global answer
         answer = max(answer, validate(arr))
         return
-    recur(cur + 1, arr + [[monster[cur], npc[cur]]])
+    recur(cur + 1, arr + [lst[cur]])
     recur(cur + 1, arr)
 
 
