@@ -15,9 +15,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		BitSet check = new BitSet();
-		int[] arr = new int[5_000_001];
 		
-		int length = 0;
 		st = new StringTokenizer(br.readLine());
 		while (st.hasMoreTokens()) {
 			int a = Integer.parseInt(st.nextToken());
