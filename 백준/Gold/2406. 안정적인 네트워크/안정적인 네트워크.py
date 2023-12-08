@@ -66,9 +66,12 @@ total = 0
 answer_cnt = 0
 answer = []
 for a, b, c in can_edge:
+    if total_cnt == n - 2:
+        break
     if union(a, b):
         total += c
         answer_cnt += 1
+        total_cnt += 1
         answer.append([a, b])
 
 print(total, answer_cnt)
