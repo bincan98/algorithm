@@ -34,21 +34,16 @@ def union(a, b, w):
         return False
     if a in supply:
         p[b] = a
-        sz[a] += sz[b] + w
     elif b in supply:
         p[a] = b
-        sz[b] += sz[a] + w
     else:
         if rnk[a] < rnk[b]:
             p[a] = b
-            sz[b] += sz[a] + w
         elif rnk[a] > rnk[b]:
             p[b] = a
-            sz[a] += sz[b] + w
         else:
             p[b] = a
             rnk[a] += 1
-            sz[a] += sz[b] + w
     return True
 
 
@@ -58,7 +53,6 @@ supply = list(map(int, input().split()))
 
 p = [i for i in range(N + 1)]
 rnk = [0 for i in range(N + 1)]
-sz = [0 for i in range(N + 1)]
 
 lst = []
 for i in range(M):
