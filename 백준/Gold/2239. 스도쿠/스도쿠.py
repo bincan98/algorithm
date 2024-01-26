@@ -4,6 +4,14 @@
 시간초과
 
 1부터 9까지 모든 수를 넣지 말고 후보수를 추려서 넣자
+
+시간초과
+
+check 배열을 만들지 않고 lst[i][j]를 들고가서 같은지 비교하기
+매번 새로 배열을 만드는게 부담인듯?
+
+참고
+https://ji-gwang.tistory.com/377
 """
 import sys
 
@@ -16,7 +24,6 @@ for _ in range(9):
 zero_position = []
 possible_row = [[False for _ in range(10)] for _ in range(9)]
 possible_column = [[False for _ in range(10)] for _ in range(9)]
-possible_box = [[False for _ in range(10)] for _ in range(9)]
 for i in range(9):
     for j in range(9):
         if lst[i][j] == 0:
@@ -26,16 +33,16 @@ for i in range(9):
             possible_column[j][lst[i][j]] = True
 
 
-def check_row(r, c, num):
+def check_row(r, num):
     for j in range(9):
-        if c != j and lst[r][j] == num:
+        if lst[r][j] == num:
             return False
     return True
 
 
-def check_column(r, c, num):
+def check_column(c, num):
     for i in range(9):
-        if r != i and lst[i][c] == num:
+        if lst[i][c] == num:
             return False
     return True
 
@@ -45,19 +52,12 @@ def check_box(r, c, num):
     nc = c // 3 * 3
     for i in range(3):
         for j in range(3):
-            if r != nr + i and c != nc + j and lst[nr + i][nc + j] == num:
+            if lst[nr + i][nc + j] == num:
                 return False
     return True
 
 
-def recur(cur, r, c, num):
-    if cur != 0:
-        if not check_row(r, c, num):
-            return
-        if not check_column(r, c, num):
-            return
-        if not check_box(r, c, num):
-            return
+def recur(cur):
     if cur == len(zero_position):
         for a in range(9):
             for b in range(9):
@@ -65,14 +65,16 @@ def recur(cur, r, c, num):
             print()
         exit()
         return
+    r, c = zero_position[cur][0], zero_position[cur][1]
     for i in range(1, 10):
-        if possible_row[zero_position[cur][0]][i]:
+        if possible_row[r][i]:
             continue
-        if possible_column[zero_position[cur][1]][i]:
+        if possible_column[c][i]:
             continue
-        lst[zero_position[cur][0]][zero_position[cur][1]] = i
-        recur(cur + 1, zero_position[cur][0], zero_position[cur][1], i)
-        lst[zero_position[cur][0]][zero_position[cur][1]] = 0
+        if check_row(r, i) and check_column(c, i) and check_box(r, c, i):
+            lst[r][c] = i
+            recur(cur + 1)
+            lst[r][c] = 0
 
 
-recur(0, 0, 0, 0)
+recur(0)
