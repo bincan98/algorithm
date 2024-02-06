@@ -10,37 +10,32 @@ V, E = map(int, input().split())
 K = int(input())
 
 lst = [[] for _ in range(V + 1)]
-dist = [987654321] * (V + 1)
+dis = [987654321 for _ in range(V + 1)]
 
-for i in range(E):
-    a, b, c = map(int, input().split())
-    lst[a].append([b, c])
+for _ in range(E):
+    u, v, w = map(int, input().split())
+    lst[u].append([v, w])
 
 
-def daijkstra(start):
+def dijkstra(start):
     pq = []
-    heapq.heapify(pq)
-
-    dist[start] = 0
-    pq.append([dist[start], start])
+    dis[start] = 0
+    heapq.heappush(pq, [0, start])
 
     while pq:
-        dis, v = heapq.heappop(pq)
-        if dist[v] != dis:
+        distance, cur_v = heapq.heappop(pq)
+        if dis[cur_v] != distance:
             continue
-        for vertex in lst[v]:
-            if dist[vertex[0]] > dist[v] + vertex[1]:
-                dist[vertex[0]] = dist[v] + vertex[1]
-                heapq.heappush(pq, [dist[vertex[0]], vertex[0]])
+        for v, w in lst[cur_v]:
+            if dis[v] > dis[cur_v] + w:
+                dis[v] = dis[cur_v] + w
+                heapq.heappush(pq, [dis[v], v])
 
 
-daijkstra(K)
+dijkstra(K)
 
-for i in range(1, V + 1):
-    if i == K:
-        print(0)
-        continue
-    if dist[i] == 987654321:
+for a in dis[1:]:
+    if a == 987654321:
         print("INF")
     else:
-        print(dist[i])
+        print(a)
