@@ -40,6 +40,7 @@ for i in range(n):
             distance[i][j] = 1
 
 # 큐 돌리기
+answer = 1
 while q:
     cur_y, cur_x = q.popleft()
     for dy, dx in dxy:
@@ -51,9 +52,6 @@ while q:
                 if in_degree[ny][nx] == 0:
                     distance[ny][nx] = distance[cur_y][cur_x] + 1
                     q.append((ny, nx))
-
-answer = 0
-for i in distance:
-    answer = max(answer, max(i))
+                    answer = max(answer, distance[ny][nx])
 
 print(answer)
