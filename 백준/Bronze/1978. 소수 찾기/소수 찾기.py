@@ -1,15 +1,20 @@
-# 소수 판정 기본코드 (파이썬)
+import sys
+
+input = lambda: sys.stdin.readline().strip()
+
 N = int(input())
 lst = list(map(int, input().split()))
 
-answer = 0
-for ele in lst:
-    if ele == 1:
+cnt_prime = 0
+for a in lst:
+    is_prime = True
+    if a == 1:
         continue
-    cnt = 0
-    for i in range(1, int(ele ** 0.5)+1):
-        if ele % i == 0:
-            cnt += 1
-    if cnt == 1:
-        answer += 1
-print(answer)
+    for i in range(2, a):
+        if a % i == 0:
+            is_prime = False
+            break
+    if is_prime:
+        cnt_prime += 1
+
+print(cnt_prime)
